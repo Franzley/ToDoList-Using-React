@@ -1,49 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import Inputs from "./Inputs.jsx";
-import { useState } from "react";
 
 const ToDos = () => {
-  const tasksList = ["test1", "test2", "test3"];
-  const [inputValue, setInputValue] = useState(tasksList);
-  const [remainingTasks, setremainingTasks] = useState(inputValue.length);
+  const [textEntered, setTextEntered] = useState("");
+  const [tasks, setTasks] = useState([]);
+  
 
-  const acceptTaskHandler = (inputValue) => {
-    setInputValue((current) => [...current, inputValue]);
-    setremainingTasks(remainingTasks + 1)
-  };
-
-  function deleteListHandler(item) {
-    item.target.parentNode.parentNode.remove();
-      setremainingTasks(remainingTasks - 1)
+  function inputValue(e) {
+    const itemValue = e.target.value;
+    setTextEntered(itemValue);
   }
 
-  const listItems = inputValue.map((item, index) => {
-    return (
-      <li key={index} className="d-flex flex-row justify-spacing-between">
-        {item}
-        <span
-          type="button"
-          onClick={deleteListHandler}
-          className="delete-button"
-        >
-          <i className="fas fa-times"></i>
-        </span>
-      </li>
-    );
-  });
+  function addNewTask(e) {
+    if (e.key === "Enter") {
+      setTasks((current)=>{
+       return [...current, textEntered]
+      })
+      setTextEntered("");
+    }
+  }
+
+  function deleteTask(id) {
+    setTasks((current)=>{
+      return current.filter((item, index)=>{
+        return index != id
+      })
+    })
+  }
 
   return (
     <div>
-      <h1 className="todo-header">todos</h1>
+      <h1 className="todo-header">Todos</h1>
       <div className="todos-container d-flex flex-column">
         <div className="todos-container-header d-flex flex-row">
-          <span className="me-3">Tasks</span><Inputs onTask={acceptTaskHandler} />
+          <span className="me-3">Tasks</span>
+          <input
+            type="text"
+            onChange={inputValue}
+            onKeyDown={addNewTask}
+            value={textEntered}
+          />
         </div>
+
         <div className="todos-container-body flex-grow-1">
-          <ul>{listItems}</ul>
+          <ul>
+            {tasks.map((task, index) => (
+              <Inputs
+                key={index}
+                id={index}
+                task={task}
+                onDelete={deleteTask}
+              />
+            ))}
+          </ul>
         </div>
-        <div className="todos-container-footer flex-grow-1">
-          {remainingTasks === 0 ? "No tasks, add a task" : `Number of Tasks: ${remainingTasks}`}
+
+        <div className="flex-grow-1">
+           {tasks.length === 0
+        ? "No tasks, add a task"
+        : `Number of Tasks: ${tasks.length}`}
         </div>
       </div>
     </div>

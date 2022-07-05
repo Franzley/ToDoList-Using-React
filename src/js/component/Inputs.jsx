@@ -1,21 +1,20 @@
-import React from 'react'
-import { useState } from "react";
+import React from "react";
 
 const Inputs = (props) => {
-  const [task, setTask ] = useState('');
-
-  const newTask = (e) =>{
-    setTask(e.target.value)
-  }
-  const returnValue = (e) =>{
-    if(e.key==='Enter'){
-      props.onTask(task)
-      setTask("")
-    }
-  }
   return (
-       <input type="text" onChange={newTask} value={task} onKeyDown={returnValue} placeholder="Enter Task"/>
-  )
-}
+    <li className="d-flex flex-row justify-spacing-between">
+      {props.task}
+      <span
+        type="button"
+        onClick={() => {
+          props.onDelete(props.id);
+        }}
+        className="delete-button"
+      >
+        <i className="fas fa-times"></i>
+      </span>
+    </li>
+  );
+};
 
-export default Inputs
+export default Inputs;

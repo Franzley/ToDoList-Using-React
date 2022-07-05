@@ -10,21 +10,17 @@ body{
 }
 
 .todos-container-header{
-    /* border: 1px solid blue;     */
     background-color: aquamarine;
     border-top-left-radius: 1.5rem !important;
     border-top-right-radius: 1.5rem !important;
 }
 .todos-container-header span{
-    /* border: 1px solid blue;     */
     background-color: aquamarine;
+    border-bottom: 1px solid blue;
     padding: 10px;
     border-top-left-radius: 1.5rem !important;
 }
 
-.todos-container-footer{
-    border-top: 1px solid blue;
-}
 
 .delete-button{
     color:red;
@@ -37,12 +33,12 @@ ul{
     padding: 0;
 }
 li{
-    border-top: 1px solid blue;
+    border-bottom: 1px solid blue;
     padding: 1rem;
     width: 100%;
 }
 li:last-child{
-    border-top: 1px solid blue;
+    border-bottom: 1px solid blue;
     padding-bottom: 0;
     width: 100%;
 }
@@ -52,8 +48,8 @@ li:hover span{
     visibility: visible;
 }
 input{
-    /* border: 1px solid rgb(115, 150, 215); */
     border: none;
     width: 100%;
     border-top-right-radius: 1.5rem !important;
+    border-bottom: 1px solid blue;
 }
